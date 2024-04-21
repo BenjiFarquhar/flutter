@@ -80,6 +80,7 @@ class ExpansionPanel {
     this.isExpanded = false,
     this.canTapOnHeader = false,
     this.backgroundColor,
+    this.splashColor,
   });
 
   /// The widget builder that builds the expansion panels' header.
@@ -94,6 +95,11 @@ class ExpansionPanel {
   ///
   /// Defaults to false.
   final bool isExpanded;
+
+  /// Defines the splash color of the panel.
+  ///
+  /// Defaults to [ThemeData.splashColor].
+  final Color? splashColor;
 
   /// Whether tapping on the panel's header will expand/collapse it.
   ///
@@ -365,6 +371,7 @@ class _ExpansionPanelListState extends State<ExpansionPanelList> {
           ignoring: child.canTapOnHeader,
           child: ExpandIcon(
             color: widget.expandIconColor,
+            splashColor: child.splashColor,
             isExpanded: _isChildExpanded(index),
             padding: _kExpandIconPadding,
             onPressed: (bool isExpanded) => _handlePressed(isExpanded, index),
@@ -399,6 +406,7 @@ class _ExpansionPanelListState extends State<ExpansionPanelList> {
       if (child.canTapOnHeader) {
         header = MergeSemantics(
           child: InkWell(
+            splashColor: child.splashColor,
             onTap: () => _handlePressed(_isChildExpanded(index), index),
             child: header,
           ),
